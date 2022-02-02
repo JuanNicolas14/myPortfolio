@@ -269,7 +269,6 @@ $form.addEventListener("submit", handleSubmit);
 function handleSubmit(e) {
   e.preventDefault();
   const form = new FormData(this);
-  console.log(form.get("name"));
   $buttonMailto.setAttribute(
     "href",
     `mailto:juan.cardenasc@outlook.com?subject=Nombre: ${form.get(
@@ -278,3 +277,42 @@ function handleSubmit(e) {
   );
   $buttonMailto.click();
 }
+
+/*==================== SECTIONS ACTIVE ====================*/
+const mainContent = document.querySelector(".main-content");
+const section = document.querySelectorAll(".section");
+
+mainContent.addEventListener("click", (e) => {
+  const id = e.target.dataset.id;
+  if (id) {
+    //hide other sections
+    section.forEach((section) => {
+      section.classList.remove("active");
+    });
+
+    const elements = document.querySelectorAll(`.${id}`);
+    elements.forEach((element) => {
+      element.classList.add("active");
+    });
+  }
+});
+
+/*==================== MIXITUP FILTER PORTFOLIO ====================*/
+let mixerPortfolio = mixitup(".work__container", {
+  selectors: {
+    target: ".work__card",
+  },
+  animation: {
+    duration: 300,
+  },
+});
+
+/* Link active work */
+const linkWork = document.querySelectorAll(".work__item");
+
+function activeWork() {
+  linkWork.forEach((l) => l.classList.remove("active-work"));
+  this.classList.add("active-work");
+}
+
+linkWork.forEach((l) => l.addEventListener("click", activeWork));
